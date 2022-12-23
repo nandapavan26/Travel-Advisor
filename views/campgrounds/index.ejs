@@ -1,0 +1,53 @@
+<% layout('layouts/boilerplate.ejs') %> 
+<link rel="stylesheet" href="stylesheets/index.css">
+<header class="jumbotron text rounded-0 d-none d-md-block mt-0">
+    <div class="container ">
+      <div class="jumbotron-text mt-5 text-center">
+        <% if(used && !result) { %>
+          <h2 class="jumbotronText">No results for <span class="font-italic"><%= name %></span>, try again. </h2>
+        <% } else { %>
+          <h1 class="display-3 jumbotronText">Welcome to Travel Advisor</h1>
+          <p class="lead jumbotronText">View campgrounds from all over the world</p>
+        <% } %>
+      </div>
+    </div>
+</header>
+
+
+<div class="d-none d-md-block mt-3" style="padding-left: 27%; padding-right: 27%;">
+    <form action="/campgrounds" method="GET" class="input-group">
+      <input type="text" class="form-control" type="text" name="search" placeholder="Search Campgrounds..." aria-label="Search" autocomplete="off">
+      <div class="input-group-append">
+           <button class="btn btn-success border-0" type="submit">search
+            </button>
+      </div>
+    </form>
+</div>
+
+<div class="row" style="padding: 0 12% 0 12%;">
+    <% for(let campground of campgrounds){ %>
+        <div class="col-sm-12 col-md-6 col-lg-4 p-2">
+            <div  class="card indexCards shadow border-0 mt-4">
+                <a href="/campgrounds/<%= campground._id %>"><img id="campgroundCard" class="card-img-top img-fluid" src="<%= campground.image %>" style="height: 10%; " ></a> 
+                <div class="card-body text-center">
+                    <h5 class="card-title text-capitalize">
+                        <a href="/campgrounds/<%= campground._id %>" style="text-decoration: none;"><%= campground.title %></a>
+                    </h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-muted"><%= campground.location%></li>
+                        <li class="list-group-item">$<%= campground.price%>/night</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <% } %>  
+</div>
+
+
+
+
+
+
+
+
+
