@@ -6,7 +6,7 @@ const Campground = require('../models/campground');
 const { campgroundSchema  } = require('../schemas');
 const { isLoggedIn,isAuthor,validateCampground } = require('../middleware');
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
-const mapBoxToken = process.env.MAPBOX_TOKEN;
+const mapBoxToken = 'pk.eyJ1IjoibmFuZGFwYXZhbjI2IiwiYSI6ImNsYmhpa3UxZDAwenczdnA4Y2cwNzRub2sifQ.Tt7Kx97YOZhdcYIQ_R1Dpg';
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 router.get('/',catchAsync(async (req,res)=>{
