@@ -21,7 +21,7 @@ const User = require('./models/user');
 
 const db_url= process.env.DB_URL
 // 'mongodb://localhost:27017/yelpcamp'
-mongoose.connect("mongodb+srv://nandapavan_26:n%40nd%402602@cluster0.8rm1box.mongodb.net/?retryWrites=true&w=majority",{
+mongoose.connect(db_url",{
     useNewUrlParser:true,
 });
 
