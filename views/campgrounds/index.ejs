@@ -28,7 +28,7 @@
     <% for(let campground of campgrounds){ %>
         <div class="col-sm-12 col-md-6 col-lg-4 p-2">
             <div  class="card indexCards shadow border-0 mt-4">
-                <a href="/campgrounds/<%= campground._id %>"><img id="campgroundCard" class="card-img-top img-fluid" src="<%= campground.image %>" style="height: 10%; " ></a> 
+                <a href="/campgrounds/<%= campground._id %>"><img id="campgroundCard" class="card-img-top img-fluid" src="<%= campground.image %>" style="height: 250px; " ></a> 
                 <div class="card-body text-center">
                     <h5 class="card-title text-capitalize">
                         <a href="/campgrounds/<%= campground._id %>" style="text-decoration: none;"><%= campground.title %></a>

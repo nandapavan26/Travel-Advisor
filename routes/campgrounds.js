@@ -11,13 +11,13 @@ const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 router.get('/',catchAsync(async (req,res)=>{
     let campgrounds=[];
-    let used=false,result=true,name=req.query.search;
+    let used=false,result=true;
+    let name=req.query.search;
     if(req.query.search){
         used=true;
-        const campground1=await Campground.find({search_title:req.query.search});
-        const campground2=await Campground.find({search_city:req.query.search});
-        const campground3=await Campground.find({search_location:req.query.search});
-        campgrounds=campgrounds.concat(campground1).concat(campground2).concat(campground3);
+        const campground1=await Campground.find({search_title:name.toLowerCase()});
+        const campground2 = await Campground.find({location:name});
+        campgrounds=campgrounds.concat(campground1).concat(campground2);
     }
     if(campgrounds.length==0){campgrounds = await Campground.find({});result=false;}
     res.render('campgrounds/index',{campgrounds,used,result,name});
@@ -35,13 +35,11 @@ router.post('/',isLoggedIn,validateCampground,catchAsync(async (req,res)=>{
     console.log(geoData.body.features[0].geometry);
     const campground = new Campground(req.body.campground);
     campground.geometry = geoData.body.features[0].geometry;
-    campground.search_title=req.body.campground.title;
-    const {location }=req.body.campground;let ind=location.indexOf(',');
-    if(ind==-1){ind=location.length;}
-    campground.search_city=location.slice(0,ind);
-    campground.search_location=location.slice(ind+1);
+    campground.search_title=req.body.campground.title.toLowerCase();
+    const {location }=req.body.campground;
     campground.author = req.user._id;
     await campground.save();
+
     req.flash('success','Sucessfully made a new campground!')
     res.redirect(`/campgrounds/${campground._id}`);
 }))
